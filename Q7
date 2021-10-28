@@ -1,0 +1,92 @@
+def partition(A,p,r):
+    """
+    The partition procedure in quicksort, which rearranges the subarray A[p...r] in place.
+    Parameters
+    ----------
+    A : list
+     Length of the input list
+    p : int
+     Start point. p>=0
+    r: int
+     End point. r<len(A)
+    Returns
+    -------
+    i+1 : int
+     Index of the pivot
+    """
+    # Initialize pivot.
+    x = A[r]
+    i = p - 1
+    # Add to smaller/larger list
+    # by swapping until pivot is reached.
+    for j in range(p,r):
+        if A[j] <= x:
+            i+=1
+            A[i], A[j] = A[j], A[i]
+    A[i+1], A[r] = A[r], A[i+1]
+    return i + 1
+
+
+def quick_sort(A,p,r):
+    """
+    Perform quicksort algorithm by dividing array A[p..r] into two (possibly empty) subarrays
+    A[p..q-1] and A[q+1..r].
+    
+    Parameters
+    ----------
+    A : list
+     Length of the input list
+    p : int
+     Start point. p>=0
+    r: int
+     End point. r<len(A)
+        
+    Returns
+    -------
+    A : list
+     The sorted list
+        """
+    
+    if p < r:
+        # Perform partition.
+        q = partition(A,p,r)
+        # Recursive call on lower element list.
+        quick_sort(A, p, q-1)
+        # Recursive call on higher element list.
+        quick_sort(A, q+1, r)
+    return A
+
+def qselect(lst,k):
+    # your code here
+    '''
+    Return the k-th smallest item in the list.
+    
+    Parameters
+    ----------
+    lst : list
+     A list
+    k : integer
+     An index
+    
+    Returns
+    -------
+    integer
+     the k-th smallest element
+    '''
+    quick_sort(lst,0,len(lst)-1)
+    return(lst[k-1])
+
+    
+# testing your code
+import random
+# introducing a seed for reproducibility purposes
+random.seed(123)
+# producing data
+data = list(range(100))
+# randomly shuffle data
+random.shuffle(data)
+# introduce a new list to store the qselect results
+qselect_results = []
+for ele in range(100):
+    qselect_results.append(qselect(data, ele+1))
+assert(qselect_results == list(range(100)))
