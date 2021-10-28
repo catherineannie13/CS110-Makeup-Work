@@ -1,0 +1,27 @@
+def median(minh, maxh):
+    '''
+    Find the median from two heaps.
+    
+    Parameters
+    ----------
+    minh : heap
+    	A min heap 
+    maxh : heap
+    	A max heap 
+    
+    Returns
+    -------
+    heap
+    	The median of two heaps 
+    '''
+    if len(minh) == 0 and len(maxh) == 0:
+        return 0 
+  
+    if len(minh) == len(maxh):
+        median = (minh[0]-maxh[0])/2 
+    elif len(minh) > len(maxh):
+        median = minh[0]
+    elif len(maxh) > len(minh):
+        median = -maxh[0]
+        
+    return median
